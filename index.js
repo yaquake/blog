@@ -33,17 +33,22 @@ const adminPasswordValidation = require('./middleware/adminPasswordValidationMid
 // Require blogpost model
 const BlogPost = require('./models/blogpost')
 
-global.loggedIn = null
-app.use('*', (req, res, next) => {
-    loggedIn = req.session.userId
-    next()
-} )
 
 
 // Sessions
 app.use(expressSession({
     secret: 'keyboard cat'
 }))
+
+// UserID throughout the whole website
+global.loggedIn = null
+app.use("*", (req, res, next) => {
+    console.log(req.session)
+    loggedIn = req.session.userId
+    next()
+})
+
+
 
 app.use(fileUpload())
 
