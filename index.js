@@ -23,7 +23,7 @@ const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
-
+const logoutUserController = require('./controllers/logoutUser')
 
 // Middleware
 const authValidation = require('./middleware/authMiddleware')
@@ -43,7 +43,7 @@ app.use(expressSession({
 // UserID throughout the whole website
 global.loggedIn = null
 app.use("*", (req, res, next) => {
-    console.log(req.session)
+    //console.log(req.session)
     loggedIn = req.session.userId
     next()
 })
@@ -84,9 +84,14 @@ app.post('/posts/store', authValidation, storePostController)
 
 app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
 app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
+app.get('/auth/logout', logoutUserController)
+
 
 app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
 app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
+
+app.use((req, res) => res.render('notfound'))
+
 
 app.listen(port, ()=> {
 	console.log(`App listening on port ${port}`)
