@@ -3,14 +3,27 @@ const schema = mongoose.Schema
 
 
 const BlogPostSchema = new schema({
-	title: String,
-	body: String,
-	username: String,
+	title: {
+        type: String,
+        required: [true, 'Please provide title']
+    },
+	body: {
+        type: String,
+        required: [true, 'Please provide text']
+    },
+	userid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 	datePosted: {
 		type: Date,
 		default: new Date()
 	},
-	image: String
+	image: {
+        type: String,
+        required: [true, 'Please provide image']
+    }
 })
 
 const BlogPost = mongoose.model('BlogPost', BlogPostSchema)

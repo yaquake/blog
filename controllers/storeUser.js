@@ -3,9 +3,13 @@ const path = require('path')
 
 module.exports = async (req, res) => {
     
-    User.create({username: req.body.name, password: req.body.password}, (error, user) => {
+    await User.create({username: req.body.name, password: req.body.password}, (error, user) => {
         if (error) {
-            console.log(error)
+            
+            const validationErrors = Object.keys(error.errors).map(key => error.errors[key].message)
+            req.flash('validationErrors', validationErrors)
+            req.flash('data', req.body)
+            
             return res.redirect('/auth/register')
         }
         res.redirect('/')

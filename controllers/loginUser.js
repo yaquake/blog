@@ -13,13 +13,15 @@ module.exports = async (req, res) => {
                     res.redirect('/')
                 }
                 else {
-                    console.log('Wrong pwd')
+                    req.flash('error', 'Wrong password')
+                    req.flash('data', name)
                     res.redirect('/auth/login')
                 }
             })
         }
         else {
-            console.log('Wrong user')
+            req.flash('error', 'Wrong username')
+            req.flash('data', name)
             res.redirect('/auth/login')
         }
 

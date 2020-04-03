@@ -7,6 +7,8 @@ const port = 3000
 const connection = require('./connection')
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')
+const flash = require('connect-flash')
+
 
 // express-fileupload for uploading files
 const fileUpload = require('express-fileupload')
@@ -34,6 +36,7 @@ const adminPasswordValidation = require('./middleware/adminPasswordValidationMid
 const BlogPost = require('./models/blogpost')
 
 
+app.use(flash())
 
 // Sessions
 app.use(expressSession({
@@ -57,7 +60,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 // Form validations
-app.use('/posts/store', validationMiddleware)
+//app.use('/posts/store', validationMiddleware)
 app.use('/users/register', adminPasswordValidation)
 
 // Static and template engine
