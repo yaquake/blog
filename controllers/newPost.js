@@ -4,7 +4,7 @@ module.exports = (req, res) => {
         var body = ""
         
         const data = req.flash('data')[0]
-        console.log(data)
+        
         if (typeof data != "undefined") {
             title = data.title
             body = data.body
