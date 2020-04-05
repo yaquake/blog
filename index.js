@@ -3,7 +3,11 @@ const express = require('express')
 const path = require('path')
 const ejs = require('ejs')
 const app = express()
-const port = process.env.PORT
+let  port = process.env.PORT
+if (port == null || port == "") {
+    port = 4000
+}
+
 const connection = require('./connection')
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')
