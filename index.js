@@ -1,6 +1,5 @@
  
 const express = require('express')
-const path = require('path')
 const ejs = require('ejs')
 const app = express()
 let  port = process.env.PORT
@@ -30,6 +29,8 @@ const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 const logoutUserController = require('./controllers/logoutUser')
+const morePostsController = require('./controllers/morePosts')
+
 
 // Middleware
 const authValidation = require('./middleware/authMiddleware')
@@ -44,7 +45,7 @@ app.use(flash())
 
 // Sessions
 app.use(expressSession({
-    secret: 'keyboard cat'
+    secret: process.env.SECRET_KEY_SESSIONS
 }))
 
 // UserID throughout the whole website
@@ -73,6 +74,7 @@ app.set('view engine', 'ejs')
 
 
 app.get('/', homeController )
+app.get('/older', morePostsController )
 
 	
 	
