@@ -7,6 +7,10 @@ const BlogPostSchema = new schema({
         type: String,
         required: [true, 'Please provide title']
     },
+    subheading: {
+        type: String,
+        required: [true, 'Please provide subheading']
+    },
 	body: {
         type: String,
         required: [true, 'Please provide text']
