@@ -19,7 +19,7 @@
 		  <h1><%= blogposts.title %></h1>
           <h2 class="subheading"><%= blogposts.subheading %></h2>
             <span class="meta">Posted by
-		    <a href="#"><%=blogposts.userid.username%></a>
+		    <a href="/<%=blogposts.userid.username%>/posts"><%=blogposts.userid.username%></a>
 		    on <%=blogposts.datePosted.toDateString()%></span>
           </div>
         </div>

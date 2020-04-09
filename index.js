@@ -1,4 +1,3 @@
- 
 const express = require('express')
 const ejs = require('ejs')
 const app = express()
@@ -11,6 +10,8 @@ const connection = require('./connection')
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')
 const flash = require('connect-flash')
+
+
 
 
 // express-fileupload for uploading files
@@ -30,6 +31,8 @@ const loginUserController = require('./controllers/loginUser')
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 const logoutUserController = require('./controllers/logoutUser')
 const morePostsController = require('./controllers/morePosts')
+const allUsersPostsController = require('./controllers/allUsersPosts')
+
 
 
 // Middleware
@@ -45,7 +48,9 @@ app.use(flash())
 
 // Sessions
 app.use(expressSession({
-    secret: process.env.SECRET_KEY_SESSIONS
+    secret: process.env.SECRET_KEY_SESSIONS,
+    resave: false,
+    saveUninitialized: true,
 }))
 
 // UserID throughout the whole website
@@ -98,6 +103,10 @@ app.get('/auth/logout', logoutUserController)
 
 app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
 app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
+
+app.get('/:name/posts', allUsersPostsController)
+
+
 
 app.use((req, res) => res.render('notfound'))
 
