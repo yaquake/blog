@@ -24,7 +24,7 @@
 		  <div class="col-lg-10 col-md-8">	 
 		  <form method="POST" action="/" >
 		  	
-		  		 <input type="text" class="form-control form-control-lg" placeholder="Search" id="search" name="search">
+		  		 <input type="text" class="form-control form-control-lg" placeholder="Search" id="search" name="search" required>
 		  </div>	
 		  <div class="col-lg-2 col-md-4">
 				<button type="submit" class="btn btn-primary" id="searchButton">Search</button>
@@ -49,7 +49,7 @@
 	  on <%= blogposts[i].datePosted.toDateString() %></p>
           <% if (loggedIn == blogposts[i].userid._id) { %>
           <p class="post-meta">
-              <a href="#">Edit</a>&nbsp<a href="#">Delete</a>
+              <a href="/edit/<%=blogposts[i]._id%>">Edit</a>&nbsp<a href="/delete/<%=blogposts[i]._id%>" id="deletePost">Delete</a>
           </p>
           <%}%>
         </div>

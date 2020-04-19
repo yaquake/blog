@@ -28,21 +28,18 @@ const newUserController = require('./controllers/register')
 const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
-const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 const logoutUserController = require('./controllers/logoutUser')
 const morePostsController = require('./controllers/morePosts')
 const allUsersPostsController = require('./controllers/allUsersPosts')
-
-
+const deletePostController = require('./controllers/deletePost')
+const editPostController = require('./controllers/editPost')
+const deleteItController = require('./controllers/deleteIt')
 
 // Middleware
 const authValidation = require('./middleware/authMiddleware')
 const validationMiddleware = require('./middleware/validationMiddleware')
 const adminPasswordValidation = require('./middleware/adminPasswordValidationMiddleware')
-
-// Require blogpost model
-const BlogPost = require('./models/blogpost')
-
+const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 
 app.use(flash())
 
@@ -106,6 +103,9 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
 
 app.get('/:name/posts', allUsersPostsController)
 
+app.get('/delete/:id', authValidation, deletePostController)
+app.get('/deletepost/:id', authValidation, deleteItController)
+app.get('/edit/:id', authValidation, editPostController)
 
 
 app.use((req, res) => res.render('notfound'))
